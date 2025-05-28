@@ -513,8 +513,7 @@ impl<T: TransactionOrdering> TxPool<T> {
         &self,
         txs: Vec<TxHash>,
     ) -> impl Iterator<Item = Arc<ValidPoolTransaction<T::Transaction>>> + '_ {
-        let by_hash = &self.all_transactions.by_hash;
-        txs.into_iter().filter_map(move |tx_hash| by_hash.get(&tx_hash).cloned())
+        txs.into_iter().filter_map(|tx_hash| self.all_transactions.by_hash.get(&tx_hash).cloned())
     }
 
     /// Returns all transactions sent from the given sender.
